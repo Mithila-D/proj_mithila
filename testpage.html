@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .question {
+        margin-bottom: 20px;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+    }
+    .option {
+        margin-bottom: 10px;
+    }
+    .done-btn {
+        margin-top: 10px;
+    }
+    #result {
+        margin-top: 20px;
+    }
+    #myPlot {
+        width: 100%;
+        max-width: 700px;
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="nav_in_me">
+<nav style="display: inline-block;">
+<div id="index" style="display: inline-block;"><a href="index.html" id="nav_link_0" style=" color: rgb(236, 40, 73);
+    text-decoration: none;
+    margin: 2px;">HOME</a></div>
+<div id="page1" style="display: inline-block;"><a href="page1.html" id="nav_link_1" style="color: black;
+    text-decoration: none;
+    margin: 2px;">LEVEL 1</a></div>
+<div id="page2" style="display: inline-block;"><a href="page2.html" id="nav_link_2" style=" color:black;
+    text-decoration: none;
+    margin: 2px;">LEVEL2</a></div>
+<div id="page3" style="display: inline-block;"><a href="page3.html" id="nav_link_3" style=" color: green;
+    text-decoration: none;
+    margin: 2px;">info</a></div>
+<div id="page4" style="display: inline-block;"><a href="sun.html" id="nav_link_4" style="color: rgb(129, 47, 47);
+    text-decoration: none;
+    margin: 2px;">3D_planet_view</a></div>
+    <div id="page5" style="display: inline-block;"><a href="LeaderBoard.html" id="nav_link_5" style="color: white;
+        text-decoration: none;
+        margin: 2px;"><div id="page4" style="display: inline-block;"><a href="sun.html" id="nav_link_4" style="color: rgb(129, 47, 47);
+    text-decoration: none;
+    margin: 2px;">LeaderBoard</a></div></a></div>
+    <div id="page5" style="display: inline-block;"><a href="classify.html" id="nav_link_5" style="color: white;
+        text-decoration: none;
+        margin: 2px;">classify_me</a></div> 
+
+</nav>
+<hr>
+<p><strong>Select single choice . Click on 'done' . Then Answers will be shown at the end of all Qs.At last click on "check score" to <p style="color: rgb(249, 4, 4);">SEE GRAPH </p> of ur performance</strong></p>
+<hr>
+<div id="quiz">
+    <div class="question" id="question1">
+        <p><strong>Which planet has the strongest winds in the solar system?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q1" value="Neptune"> Neptune</label>
+            <label class="option"><input type="radio" name="q1" value="Mars"> Mars</label>
+            <label class="option"><input type="radio" name="q1" value="Saturn"> Saturn</label>
+            <label class="option"><input type="radio" name="q1" value="Jupiter"> Jupiter</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q1')">Done</button>
+    </div>
+
+    <div class="question" id="question2">
+        <p><strong>What is the name of Saturn's largest moon?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q2" value="Ganymede"> Ganymede</label>
+            <label class="option"><input type="radio" name="q2" value="Titan"> Titan</label>
+            <label class="option"><input type="radio" name="q2" value="Europa"> Europa</label>
+            <label class="option"><input type="radio" name="q2" value="Io"> Io</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q2')">Done</button>
+    </div>
+
+    <div class="question" id="question3">
+        <p><strong>Which planet has the tallest volcano in the solar system?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q3" value="Venus"> Venus</label>
+            <label class="option"><input type="radio" name="q3" value="Mars"> Mars</label>
+            <label class="option"><input type="radio" name="q3" value="Earth"> Earth</label>
+            <label class="option"><input type="radio" name="q3" value="Jupiter"> Jupiter</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q3')">Done</button>
+    </div>
+
+    <div class="question" id="question4">
+        <p><strong>What is the name of Earth's natural satellite?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q4" value="Phobos"> Phobos</label>
+            <label class="option"><input type="radio" name="q4" value="Deimos"> Deimos</label>
+            <label class="option"><input type="radio" name="q4" value="Moon"> Moon</label>
+            <label class="option"><input type="radio" name="q4" value="Europa"> Europa</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q4')">Done</button>
+    </div>
+
+    <div class="question" id="question5">
+        <p><strong>Which planet has a sideways rotation?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q5" value="Mercury"> Mercury</label>
+            <label class="option"><input type="radio" name="q5" value="Venus"> Venus</label>
+            <label class="option"><input type="radio" name="q5" value="Uranus"> Uranus</label>
+            <label class="option"><input type="radio" name="q5" value="Neptune"> Neptune</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q5')">Done</button>
+    </div>
+
+    <div class="question" id="question6">
+        <p><strong>What is the primary gas responsible for the red coloration of Mars?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q6" value="Methane"> Methane</label>
+            <label class="option"><input type="radio" name="q6" value="Carbon dioxide"> Carbon dioxide</label>
+            <label class="option"><input type="radio" name="q6" value="Oxygen"> Oxygen</label>
+            <label class="option"><input type="radio" name="q6" value="Iron oxide (rust)"> Iron oxide (rust)</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q6')">Done</button>
+    </div>
+
+    <div class="question" id="question7">
+        <p><strong>Which planet is known for its iconic Great Red Spot?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q7" value="Jupiter"> Jupiter</label>
+            <label class="option"><input type="radio" name="q7" value="Saturn"> Saturn</label>
+            <label class="option"><input type="radio" name="q7" value="Mars"> Mars</label>
+            <label class="option"><input type="radio" name="q7" value="Neptune"> Neptune</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q7')">Done</button>
+    </div>
+
+    <div class="question" id="question8">
+        <p><strong>What is the name of Mercury's largest impact crater?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q8" value="Valles Marineris"> Valles Marineris</label>
+            <label class="option"><input type="radio" name="q8" value="Olympus Mons"> Olympus Mons</label>
+            <label class="option"><input type="radio" name="q8" value="Hellas Planitia"> Hellas Planitia</label>
+            <label class="option"><input type="radio" name="q8" value="Caloris Basin"> Caloris Basin</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q8')">Done</button>
+    </div>
+
+    <div class="question" id="question9">
+        <p><strong>What is the primary gas in Earth's atmosphere?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q9" value="Oxygen"> Oxygen</label>
+            <label class="option"><input type="radio" name="q9" value="Carbon dioxide"> Carbon dioxide</label>
+            <label class="option"><input type="radio" name="q9" value="Nitrogen"> Nitrogen</label>
+            <label class="option"><input type="radio" name="q9" value="Methane"> Methane</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q9')">Done</button>
+    </div>
+
+    <div class="question" id="question10">
+        <p><strong>Which planet has the most extensive ring system in the solar system?</strong></p>
+        <div class="options">
+            <label class="option"><input type="radio" name="q10" value="Saturn"> Saturn</label>
+            <label class="option"><input type="radio" name="q10" value="Jupiter"> Jupiter</label>
+            <label class="option"><input type="radio" name="q10" value="Uranus"> Uranus</label>
+            <label class="option"><input type="radio" name="q10" value="Neptune"> Neptune</label>
+        </div>
+        <button class="done-btn" onclick="checkAnswer('q10')">Done</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="myPlot"></div>
+</div>
+<div>
+  <strong>click below button to check score
+    <button onclick="calculateScore()">check score</button>
+  </strong>
+  <p id="mark" style="color: darkred;"><strong>Result will be displayed here</strong></p>
+</div>
+<button><a href="LeaderBoard.html" style="text-decoration: none;">visit LeaderBoard</a></button>
+<script>
+  let score = 0;
+  let corr=0;
+
+  function checkAnswer(questionId) {
+      const answers = {
+          q1: "Neptune",
+          q2: "Titan",
+          q3: "Mars",
+          q4: "Moon",
+          q5: "Uranus",
+          q6: "Iron oxide (rust)",
+          q7: "Jupiter",
+          q8: "Caloris Basin",
+          q9: "Nitrogen",
+          q10: "Saturn"
+      };
+
+      const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
+
+      if (selectedAnswer) {
+          const userAnswer = selectedAnswer.value;
+          const correctAnswer = answers[questionId];
+
+          const resultElement = document.getElementById("result");
+          if (userAnswer === correctAnswer) {
+              resultElement.innerHTML += `<p>Question ${questionId}: Correct!</p>`;
+              score=score+10;
+              corr=corr+1;
+          } else {
+              resultElement.innerHTML += `<p>Question ${questionId}: Incorrect</p>`;
+          }
+      } else {
+          alert("Please select an answer.");
+      }
+  }
+
+  function calculateScore() {
+      const markElement = document.getElementById("mark");
+      markElement.textContent = `Your score: ${score} out of 100`;
+
+      const incorr = 10 - corr;
+      const xArray = ["Correct", "Incorrect"];
+      const yArray = [corr, incorr];
+      
+      const layout = { title: "Performance Summary" };
+      const data = [{ labels: xArray, values: yArray, type: "pie" }];
+
+      Plotly.newPlot("myPlot", data, layout);
+      document.getElementById("myPlot").style.display = "block"; 
+  }
+</script>
+
+</body>
+</html>

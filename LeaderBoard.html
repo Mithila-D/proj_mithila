@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doc</title>
+<link rel="stylesheet" href="LeaderBoard.css">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="nav_in_me">
+    <nav style="display: inline-block;">
+        <div id="index" style="display: inline-block;"><a href="index.html" id="nav_link_0">HOME</a></div>
+        <div id="page1" style="display: inline-block;"><a href="page1.html" id="nav_link_1">LEVEL 1</a></div>
+        <div id="page2" style="display: inline-block;"><a href="page2.html" id="nav_link_2">LEVEL2</a></div>
+        <div id="page3" style="display: inline-block;"><a href="page3.html" id="nav_link_3">info</a></div>
+        <div id="page4" style="display: inline-block;"><a href="sun.html" id="nav_link_4">3D_planet_view</a></div>
+        <div id="page5" style="display: inline-block;"><a href="LeaderBoard.html" id="nav_link_5">LeaderBoard</a></div>
+        <div id="page5" style="display: inline-block;"><a href="classify.html" id="nav_link_5" style="color: white;
+            text-decoration: none;
+            margin: 2px;">classify_me</a></div> 
+    </nav>
+</div>
+
+<div id="text_in_Me">
+    <h1>Predict Institution Test Score Based On ur Platfor Score</h1>
+    <h3>welcome</h3>
+    
+    <p id="p1">Enter your platform score:</p>
+    <input type="number" id="plt_scr">
+    <button onclick="predictScore()" id="button">Predict</button>
+    <p id="pred_scr"></p>
+</div>
+
+<div style="background-image: url(win.jpg);"></div>
+
+<div id="myPlot" style="width:100%;max-width:700px"></div>
+<p id="graph_me_2"></p>
+<script>
+    const dataset = [
+        [80, 85],
+        [85, 88],
+        [90, 92],
+        [92, 95],
+        [95, 98]
+    ];
+  
+    function mean(data) {
+        return data.reduce((acc, val) => acc + val, 0) / data.length;
+    }
+  
+    function Cov(x, y, meanX, meanY) {
+        let cov = 0;
+        const n = x.length;
+        for (let i = 0; i < n; i++) {
+            cov += (x[i] - meanX) * (y[i] - meanY);
+        }
+        return cov / n;
+    }
+  
+    function variance(data, mean) {
+        let variance = 0;
+        for (const value of data) {
+            variance += Math.pow(value - mean, 2);
+        }
+        return variance / data.length;
+    }
+  
+    const testScr = dataset.map(entry => entry[0]);
+    const insti_scr = dataset.map(entry => entry[1]);
+    const mean_plt = mean(testScr);
+    const meanInsti = mean(insti_scr);
+  
+    const CovValue = Cov(testScr, insti_scr, mean_plt, meanInsti);
+    const varianceVal = variance(testScr, mean_plt);
+  
+    const beta1 = CovValue / varianceVal;
+    const beta0 = meanInsti - (beta1 * mean_plt);
+  
+    function pred_inst_scr(platformScore, beta0, beta1) {
+        return beta0 + (beta1 * platformScore);
+    }
+  
+    function predictScore() {
+        const plt_scr = document.getElementById("plt_scr");
+        const pred_ele = document.getElementById("pred_scr");
+  
+        const newPlatformScore = parseFloat(plt_scr.value);
+        if (!isNaN(newPlatformScore)) {
+            const predictedInstitutionScore = pred_inst_scr(newPlatformScore, beta0, beta1);
+            pred_ele.textContent = `Predicted institution score for ur score in this platform test ${newPlatformScore} is: ${predictedInstitutionScore}`;
+        } 
+    }
+  </script>
+  <script>
+      const xArray = [80, 85, 90, 92, 95];
+      const yArray = [85, 88, 92, 95, 98];
+      
+      const n1 = {
+        x: xArray,
+        y: yArray,
+        mode: "markers",
+        type: "scatter",
+        name: "Data Points",
+        marker: { color: "pink" }
+      };
+  
+      const xRange = [Math.min(...xArray), Math.max(...xArray)];
+      const yPredicted = xRange.map(x => beta0 + beta1 * x);
+  
+      const n2 = {
+        x: xRange,
+        y: yPredicted,
+        mode: "lines",
+        type: "scatter",
+        name: "linear regression line ",
+        line: { color: "purple" }
+      };
+      
+      const layout = { title: "Linear Regression: platform vs institution performance prev year performance" };
+      
+      Plotly.newPlot("myPlot", [n1,n2], layout);
+  </script>
+  
+
+</body>
+</html>

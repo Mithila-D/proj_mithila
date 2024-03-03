@@ -1,0 +1,68 @@
+#body
+{
+    font-size: 50px;
+}
+
+
+#text_in_Me
+{
+   text-align: center;
+}
+#pred_scr
+{
+    font-size: 30px;
+}
+#button
+{
+    font-size: 30px;
+}
+#p1
+{
+    font-size: 30px;
+}
+
+#nav_in_me
+{
+    background-color: black;
+    z-index: 1;
+    position: fixed;
+    top: 0px;
+    height: auto;
+    width: 100%;
+}
+#nav_link_0
+{
+    color: white;
+   text-decoration: none;
+   margin: 2px;
+}
+#nav_link_1
+{
+    color:white;
+   text-decoration: none;
+   margin: 2px;
+}
+#nav_link_2
+{
+    color:white;
+    text-decoration: none;
+    margin: 2px;
+}
+#nav_link_3
+{
+    color: white;
+    text-decoration: none;
+    margin: 2px;
+}
+#nav_link_4
+{
+    color: red;
+    text-decoration: none;
+    margin: 2px;
+}
+#nav_link_5
+{
+    color: yellowgreen;
+    text-decoration: none;
+    margin: 2px;
+}

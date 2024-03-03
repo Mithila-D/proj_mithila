@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="page1.css">
+</head>
+<body>
+
+  <div id="nav_in_me">
+  <nav style="display: inline-block;">
+     
+       
+       
+    
+    <div id="index" style="display: inline-block;"><a href="index.html" id="nav_link_0">HOME</a></div>
+    <div id="page1" style="display: inline-block;"><a href="page1.html" id="nav_link_1">LEVEL 1</a></div>
+    <div id="page2" style="display: inline-block;"><a href="page2.html" id="nav_link_2">LEVEL2</a></div>
+    <div id="page3" style="display: inline-block;"><a href="page3.html" id="nav_link_3">info</a></div>
+    <div id="page4" style="display: inline-block;"><a href="sun.html" id="nav_link_4">3D_planet_view</a></div>
+    <div id="page5" style="display: inline-block;"><a href="LeaderBoard.html" id="nav_link_5">LeaderBoard</a></div>
+ 
+  </nav>
+</div>
+  <!-- <div id="sunhalf"><img src="sunhalf.jpg" alt="sun.pic">  </div> -->
+
+<div  id="main" ><h1>LEVEL 1</h1></div>
+<h4 id="h4">click on the below button:</h4>
+<h5>YOU CAN ZOOM,MOVE THE SUN</h5>
+  <div id="button_in_me">
+    <button id="button1"><a href="sun.html" style="color:white;text-decoration:none; ">sun</a></button>
+  </div>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.133.1/build/three.module.js';
+   
+
+    const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
+    camera.position.z = 1;
+
+    const scene = new THREE.Scene();
+
+    
+    const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    
+
+    const textureLoader = new THREE.TextureLoader();
+    
+    const material = new THREE.MeshBasicMaterial({
+         map:  textureLoader.load('sun.jpg')
+        });
+        const material2 = new THREE.MeshBasicMaterial({
+            map:  textureLoader.load('sun.jpg')
+           });
+
+        
+
+    const mesh = new THREE.Mesh(sphereGeometry, material);
+    scene.add(mesh);
+    
+    mesh.position.set(-0.5,0,0);
+    const ambLight = new THREE.AmbientLight(0xffffff, 0x000000, 1);
+    scene.add(ambLight);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    renderer.setAnimationLoop(animation);
+
+    function animation(time) {
+      
+        mesh.rotation.y = time / 1000;
+        renderer.render(scene, camera);
+    }
+
+    document.addEventListener('mousedown', (event) => {
+        isDragging = true;
+    });
+
+    document.addEventListener('mousemove', (event) => {
+        if (!isDragging) return;
+
+        const deltaMove = {
+            x: event.clientX - previousMousePosition.x,
+            y: event.clientY - previousMousePosition.y
+        };
+
+        previousMousePosition = {
+            x: event.clientX,
+            y: event.clientY
+        };
+
+        const movementScale = 0.01;
+        camera.position.x += deltaMove.x * movementScale;
+        camera.position.y -= deltaMove.y * movementScale;
+
+        const viewportHalfWidth = window.innerWidth / 2;
+        const viewportHalfHeight = window.innerHeight / 2;
+        camera.position.x = Math.max(-viewportHalfWidth, Math.min(viewportHalfWidth, camera.position.x));
+        camera.position.y = Math.max(-viewportHalfHeight, Math.min(viewportHalfHeight, camera.position.y));
+    });
+
+    document.addEventListener('mouseup', (event) => {
+        isDragging = false;
+    });
+
+    document.addEventListener('wheel', (event) => {
+        const zoomScale = 0.1;
+        camera.position.z += event.deltaY * zoomScale;
+
+        const minZoom = 0.5;
+        const maxZoom = 10;
+        camera.position.z = Math.max(minZoom, Math.min(maxZoom, camera.position.z));
+    });
+</script>
+</body>
+</html>

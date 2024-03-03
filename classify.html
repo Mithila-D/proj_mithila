@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+        background-color: black;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      color: rgb(36, 196, 36);
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    #form {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+    <div id="nav_in_me">
+        <nav style="display: inline-block;">
+        <div id="index" style="display: inline-block;"><a href="index.html" id="nav_link_0" style=" color: rgb(236, 40, 73);
+            text-decoration: none;
+            margin: 2px;">HOME</a></div>
+        <div id="page1" style="display: inline-block;"><a href="page1.html" id="nav_link_1" style="color: white;
+            text-decoration: none;
+            margin: 2px;">LEVEL 1</a></div>
+        <div id="page2" style="display: inline-block;"><a href="page2.html" id="nav_link_2" style=" color:white;
+            text-decoration: none;
+            margin: 2px;">LEVEL2</a></div>
+        <div id="page3" style="display: inline-block;"><a href="page3.html" id="nav_link_3" style=" color: green;
+            text-decoration: none;
+            margin: 2px;">info</a></div>
+        <div id="page4" style="display: inline-block;"><a href="sun.html" id="nav_link_4" style="color: rgb(129, 47, 47);
+            text-decoration: none;
+            margin: 2px;">3D_planet_view</a></div>
+            <div id="page5" style="display: inline-block;"><a href="LeaderBoard.html" id="nav_link_5" style="color: white;
+                text-decoration: none;
+                margin: 2px;">LeaderBoard</a></div>
+                <div id="page5" style="display: inline-block;"><a href="classify.html" id="nav_link_5" style="color: yellowgreen;
+                    text-decoration: none;
+                    margin: 2px;">classify_me</a></div>       
+        
+        </nav></div>
+
+<table>
+  <tr>
+    <th>planet</th>
+    <th>size</th>
+    <th>composision</th>
+    <th>dist_sun</th>
+  </tr>
+  <tr>
+    <td>earth</td>
+    <td>1</td>
+    <td>0.4</td>
+    <td>1</td>
+  </tr>
+<tr>
+<td>  jupiter</td>
+<td>317.8</td>
+   <td>0.8</td>
+<td>5.2</td>
+  </tr>
+  <tr>
+    <td>venus</td>
+    <td>0.815</td>
+    <td>0.3</td>
+    <td>0.72</td>
+  </tr>
+</table>
+
+<div id="form">
+  <label for="sizes">  Size
+
+  </label>
+  <input type="number" id="sizes" step="0.001">
+  <br>
+  
+  <br>
+  <label for="compo">composision
+
+  </label>
+  <input type="number" id="compo" step="0.001">
+<br><br>
+  <br>
+  <label for="dist">dist_sun
+
+  </label>
+  <input type="number" id="dist" step="0.001"><br>
+  <p>now give some value and classify the planets to see if they are rocky or gas giants</p>
+<br>
+  <button onclick="classify_me()">Classify</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+    function classify_me() {
+        const size = parseFloat(document.getElementById('sizes').value);
+        const composision = parseFloat(document.getElementById('compo').value);
+        const dist = parseFloat(document.getElementById('dist').value);
+    
+        const sizeVar = 0.5;
+        const comp_var = 0.8;
+        const dist_var = -0.3;
+        const intercept = -1;
+    
+        const score = size * sizeVar + composision * comp_var + dist * dist_var + intercept;
+        const probability = 1 / (1 + Math.exp(-score));
+    
+        let Res;
+        if (probability >= 0.5) {
+            Res = "Gas Giant";
+        } else {
+            Res = "Rocky";
+        }
+    
+        document.getElementById('result').innerText = `Classification: ${Res}`;
+    }
+    
+</script>
+
+</body>
+</html>
